@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart/logIn.dart';
 import 'package:heart/screen/chat.dart';
 import 'package:heart/screen/diary.dart';
 import 'package:heart/screen/home.dart';
@@ -41,6 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _drawerIndex = 0;
   late PageController _pageController;
   String memberId = 'test';
+  String nickname = 'text';
+  bool isLogin = false;
 
   @override
   void initState() {
@@ -72,10 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
             context, MaterialPageRoute(builder: (context) => Mypage()));
       } else if (index == 1) {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Statistics(),
-            ));
+            context, MaterialPageRoute(builder: (context) => Statistics()));
       }
     });
   }
@@ -116,11 +116,18 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedIndex: _drawerIndex,
           onDestinationSelected: _onTapDrawer,
           children: [
-            DrawerHeader(
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
+            if (isLogin)
+              DrawerHeader(
+                child: Text('안녕하세요\n ${nickname}님!'),
+              )
+            else
+              DrawerHeader(
+                child: ElevatedButton(
+                  onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Login())),
+                  child: Text('로그인하기'),
+                ),
               ),
-            ),
             NavigationDrawerDestination(
                 icon: Icon(Icons.portrait_sharp), label: Text('My Page')),
             NavigationDrawerDestination(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:heart/logIn.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'APi/login_apis.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -49,19 +48,6 @@ class _SignUpFormState extends State<SignUpForm> {
   var gender;
   bool _isEmailValid = true;
 
-  Future<String> _checkEmailDuplicate(String email) async {
-    final response = await http.get(
-      Uri.parse(
-          'http://54.79.110.239:8080/api/members/checkId?memberId=$email'),
-    );
-
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      throw Exception('중복 체크 실패!!');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -101,7 +87,7 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           TextButton(
             onPressed: () async {
-              String message = await _checkEmailDuplicate(_email);
+              String message = await checkEmailDuplicate(_email);
               if (message == '이미 사용 중인 아이디입니다.') {
                 setState(() {
                   _isEmailValid = false;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:heart/drawer/demo1.dart';
+import 'package:heart/drawer/demo2.dart';
 import 'package:heart/logIn.dart';
 import 'package:heart/screen/chat.dart';
 import 'package:heart/screen/diary.dart';
 import 'package:heart/screen/home.dart';
-import 'package:heart/drawer/mypage.dart';
-import 'package:heart/screen/screen4.dart';
-import 'package:heart/screen/screen5.dart';
-import 'package:heart/drawer/statistics.dart';
+import 'package:heart/screen/mypage.dart';
+import 'package:heart/screen/statistics.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 void main() {
@@ -38,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
   int _drawerIndex = 0;
   late PageController _pageController;
   String memberId = 'test';
@@ -72,10 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
       _drawerIndex = index;
       if (index == 0) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Mypage()));
+            context, MaterialPageRoute(builder: (context) => Demo1()));
       } else if (index == 1) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Statistics()));
+            context, MaterialPageRoute(builder: (context) => Demo2()));
       }
     });
   }
@@ -129,10 +129,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             NavigationDrawerDestination(
-                icon: Icon(Icons.portrait_sharp), label: Text('My Page')),
-            NavigationDrawerDestination(
-                icon: Icon(Icons.bar_chart), label: Text('통계')),
-            NavigationDrawerDestination(
                 icon: Icon(Icons.abc), label: Text('임시1')),
             NavigationDrawerDestination(
                 icon: Icon(Icons.ac_unit), label: Text('임시2')),
@@ -159,11 +155,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       IndexedStack(
                         index: _selectedIndex,
                         children: [
-                          Home(),
                           Chat(),
                           Diary(),
-                          Demo4(),
-                          Demo5(),
+                          Home(),
+                          Statistics(),
+                          Mypage(),
                         ],
                       )
                     ],
@@ -174,11 +170,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: _pageController,
                 onPageChanged: _onPageChanged,
                 children: const [
-                  Home(),
                   Chat(),
                   Diary(),
-                  Demo4(),
-                  Demo5(),
+                  Home(),
+                  Statistics(),
+                  Mypage(),
                 ],
               ),
         bottomNavigationBar: SalomonBottomBar(
@@ -194,11 +190,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 final _navBarItems = [
   SalomonBottomBarItem(
-    icon: const Icon(Icons.home),
-    title: const Text("Home"),
-    selectedColor: Colors.purple,
-  ),
-  SalomonBottomBarItem(
     icon: const Icon(Icons.chat),
     title: const Text("Chat"),
     selectedColor: Colors.pink,
@@ -209,13 +200,18 @@ final _navBarItems = [
     selectedColor: Colors.orange,
   ),
   SalomonBottomBarItem(
-    icon: const Icon(Icons.person),
-    title: const Text("Screen4"),
+    icon: const Icon(Icons.home),
+    title: const Text("Home"),
+    selectedColor: Colors.purple,
+  ),
+  SalomonBottomBarItem(
+    icon: const Icon(Icons.bar_chart_sharp),
+    title: const Text("Statistics"),
     selectedColor: Colors.teal,
   ),
   SalomonBottomBarItem(
-    icon: const Icon(Icons.person),
-    title: const Text("Screen5"),
+    icon: const Icon(Icons.person_2_outlined),
+    title: const Text("MyPage"),
     selectedColor: Colors.teal,
   ),
 ];
@@ -235,10 +231,10 @@ final _navRailItems = [
   ),
   const NavigationRailDestination(
     icon: Icon(Icons.person),
-    label: Text("Screen4"),
+    label: Text("Statistics"),
   ),
   const NavigationRailDestination(
     icon: Icon(Icons.person),
-    label: Text("Screen5"),
+    label: Text("MyPage"),
   ),
 ];
